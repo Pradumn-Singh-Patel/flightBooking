@@ -1,0 +1,46 @@
+.bookingBtn{
+    margin: 20px;
+    float: right;
+}
+
+
+.nextBtn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.mealContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* justify-content: space-evenly; */
+}
+
+.meal-quantity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem
+
+}
+
+.swapSymbol{
+    border: none;
+    background-color: white;
+}
+
+.priceDetails{
+    /* background-color: yellow;
+    width: 50px; */
+    /* text-align: center; */
+}
+.btnContainer{
+    margin-top: 2rem;
+}
+
+.mealAmount{
+    margin-top: 22px;
+    float: right;
+}
