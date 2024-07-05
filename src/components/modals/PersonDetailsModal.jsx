@@ -15,6 +15,9 @@ const PersonDetailsModal = ({ modalNumber, handleBackModal, handleNextModal }) =
 
   const dispatch = useDispatch()
 
+  const nameRegex = /^[a-zA-ZÀ-ÿ-'\s]+$/
+
+
   const handleNextClick = () => {
 
     let formValid = true;
@@ -54,6 +57,11 @@ const PersonDetailsModal = ({ modalNumber, handleBackModal, handleNextModal }) =
     handleBackModal();
   };
 
+  const isValidName = (name) => {
+    console.log('regex ',/^[a-zA-ZÀ-ÿ-'\s]+$/.test(name));
+    return /^[a-zA-ZÀ-ÿ-'\s]+$/.test(name)
+  }
+
   return (
     <Modal
       open={modalNumber === 1 ? true : false}
@@ -72,6 +80,7 @@ const PersonDetailsModal = ({ modalNumber, handleBackModal, handleNextModal }) =
             error={!!firstNameError}
             helperText={firstNameError}
             value={firstName}
+            // onChange={(e) => setFirstName(isValidName(e.target.value) ? e.target.value : firstName)}
             onChange={(e) => setFirstName(e.target.value)}
           />
           <TextField
@@ -91,6 +100,7 @@ const PersonDetailsModal = ({ modalNumber, handleBackModal, handleNextModal }) =
               value={dob}
               onChange={(e) => setDob(e.target.value)}
               InputLabelProps={{ shrink: true }}
+              inputProps={{ max: new Date().toISOString().split('T')[0] }}
             />
       <Stack direction="row" spacing={2}>
       <Button variant="contained" onClick={handleBackClick}>

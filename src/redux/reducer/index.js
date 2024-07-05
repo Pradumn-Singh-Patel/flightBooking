@@ -1,86 +1,17 @@
-// const initialState = [
-//    {
-//      id: 0,
-//      passengerFullName: '',
-//      age: '',
-//      from: '',
-//      to: '',
-//      date: '',
-//      mealAmount: 0,
-//      flightFare: '',
-//      totalAmount: '',
-//    },
-//  ];
- 
-//  export const bookingDetailsReducer = (state = initialState, action) => {
-//    switch (action.type) {
-//      case "personDetail":
-//        console.log("person details reducer", action.payload);
-//        const { firstName, lastName, dob } = action.payload;
-//        return state.map((booking) => ({
-//          ...booking,
-//        }));
- 
-//      case "flightDetail":
-//        console.log("flight details reducer", action.payload);
-//        const { fromCity, toCity, bookingFor, age, bookingDate, flightPrice } = action.payload;
-//        return state.map((booking) => {
-//          if (booking.id === 0) {
-//            return {
-//              ...booking,
-//              passengerFullName: bookingFor,
-//              from: fromCity,
-//              to: toCity,
-//              date: bookingDate,
-//              flightFare: flightPrice,
-//              age,
-//            };
-//          }
-//          return booking;
-//        });
- 
-//      case "mealFareDetail":
-//        console.log("meal fare reducer", action.payload);
-//        return state.map((booking) => {
-//          if (booking.id === 0) {
-//            return {
-//              ...booking,
-//              mealAmount: action.payload,
-//            };
-//          }
-//          return booking;
-//        });
- 
-//      case "totalFare":
-//        console.log("total fare reducer", action.payload);
-//        return state.map((booking) => {
-//          if (booking.id === 0) {
-//            return {
-//              ...booking,
-//              totalAmount: action.payload,
-//            };
-//          }
-//          return booking;
-//        });
- 
-//      default:
-//        return state;
-//    }
-//  };
- 
-
+import { PERSON_DETAIL, FLIGHT_DETAIL, MEAL_FARE_DETAIL, TOTAL_FARE } from "../../constant";
 
 const initialState = [];
 
 export const bookingDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "personDetail":
+    case PERSON_DETAIL:
       console.log("person details reducer", action.payload);
       const { firstName, lastName, dob } = action.payload;
      
       const newBooking = {
         id: state.length, 
-        passengerName: '',
+        passengerName: firstName + " " + lastName,
+        dob,
         age: '',
         from: '',
         to: '',
@@ -91,11 +22,11 @@ export const bookingDetailsReducer = (state = initialState, action) => {
       };
       return [...state, newBooking];
 
-    case "flightDetail":
+    case FLIGHT_DETAIL:
       console.log("flight details reducer", action.payload);
       const { fromCity, toCity, bookingFor, age, bookingDate, flightPrice } = action.payload;
       const updatedStateFlight = state.map((booking) => {
-        if (booking.id === state.length - 1) { // Update the last booking entry
+        if (booking.id === state.length - 1) {
           return {
             ...booking,
             passengerName: bookingFor,
@@ -110,7 +41,7 @@ export const bookingDetailsReducer = (state = initialState, action) => {
       });
       return updatedStateFlight;
 
-    case "mealFareDetail":
+    case MEAL_FARE_DETAIL:
       console.log("meal fare reducer", action.payload);
       const updatedStateMeal = state.map((booking) => {
         if (booking.id === state.length - 1) {
@@ -123,7 +54,7 @@ export const bookingDetailsReducer = (state = initialState, action) => {
       });
       return updatedStateMeal;
 
-    case "totalFare":
+    case TOTAL_FARE:
       console.log("total fare reducer", action.payload);
       const updatedStateTotal = state.map((booking) => {
         if (booking.id === state.length - 1) {

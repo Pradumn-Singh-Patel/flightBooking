@@ -1,0 +1,4 @@
+export const PERSON_DETAIL = "PERSON_DETAIL"
+export const FLIGHT_DETAIL = "FLIGHT_DETAIL"
+export const MEAL_FARE_DETAIL = "MEAL_FARE_DETAIL"
+export const TOTAL_FARE = "TOTAL_FARE"

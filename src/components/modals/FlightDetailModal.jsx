@@ -11,6 +11,7 @@ import {
 import { cities } from "../../dummyData";
 import { useDispatch, useSelector } from "react-redux";
 import { flightDetail } from "../../redux/actions";
+import { differenceInYears } from 'date-fns';
 
 const FlightDetailModal = ({
   modalNumber,
@@ -31,6 +32,8 @@ const FlightDetailModal = ({
   const [bookingForError, setbookingForError] = useState("");
   const [ageError, setAgeError] = useState("");
   const [bookingDateError, setbookingDateError] = useState("");
+
+  const bookingDetails = useSelector((state) => state.bookingDetailsReducer);
 
   const dispatch = useDispatch();
 
@@ -122,6 +125,13 @@ const FlightDetailModal = ({
     setFlightPrice(flightPrice + flightFare)
 }
 
+const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const currentDate = new Date();
+    return differenceInYears(currentDate, birthDate);
+  };
+
+  const passengerAge= calculateAge(bookingDetails.length !==0 ? bookingDetails[bookingDetails.length-1].dob : '');
 
 
 
@@ -201,7 +211,7 @@ const FlightDetailModal = ({
             variant="outlined"
             error={!!bookingForError}
             helperText={bookingForError}
-            value={bookingFor}
+            value={bookingDetails.length !==0 ? bookingDetails[bookingDetails.length-1].passengerName : ''}
             onChange={(e) => setBookingFor(e.target.value)}
           />
           <TextField
@@ -209,7 +219,7 @@ const FlightDetailModal = ({
             variant="outlined"
             error={!!ageError}
             helperText={ageError}
-            value={age}
+            value={passengerAge}
             onChange={(e) => setAge(e.target.value)}
           />
           <TextField
@@ -221,6 +231,7 @@ const FlightDetailModal = ({
             value={bookingDate}
             onChange={(e) => setBookingDate(e.target.value)}
             InputLabelProps={{ shrink: true }}
+            inputProps={{ min: new Date().toISOString().split('T')[0] }}
           />
               <Typography className="flighFare" variant="body1">
          <h4> Flight Fare : {bookingDate && flightPrice}</h4>
